@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alush Coffee | Artisanal Ethiopian Coffee & Roasters</title>
+  <!-- Google Fonts: Inter/Outfit + Playfair Display + Noto Sans Ethiopic + Noto Serif Ethiopic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;500;600;700;800&family=Noto+Serif+Ethiopic:wght@600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container container">
+      <a href="#" class="logo" id="main-logo">
+        <div class="logo-badge">
+          <i class="fa-solid fa-mug-hot"></i>
+        </div>
+        <span class="logo-text">Alush <span>Coffee</span></span>
+      </a>
+
+      <nav class="nav-menu" id="nav-menu">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="#home" class="nav-link active" data-i18n="nav_home">Home</a></li>
+          <li class="nav-item"><a href="#about" class="nav-link" data-i18n="nav_about">About</a></li>
+          <li class="nav-item"><a href="#menu" class="nav-link" data-i18n="nav_menu">Menu</a></li>
+          <li class="nav-item"><a href="#specials" class="nav-link" data-i18n="nav_specials">Specials</a></li>
+          <li class="nav-item"><a href="#reservation" class="nav-link" data-i18n="nav_reserve">Reserve</a></li>
+          <li class="nav-item"><a href="#reviews" class="nav-link" data-i18n="nav_reviews">Reviews</a></li>
+          <li class="nav-item"><a href="#contact" class="nav-link" data-i18n="nav_contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Amharic / English Language Switcher -->
+        <button class="lang-btn" id="lang-toggle-btn" aria-label="Switch Language / ቋንቋ ቀይር">
+          <i class="fa-solid fa-globe"></i>
+          <span id="current-lang-text">አማርኛ</span>
+        </button>
+
+        <button class="cart-btn" id="cart-toggle-btn" aria-label="Open Shopping Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-badge" id="cart-badge">0</span>
+        </button>
+
+        <a href="#reservation" class="btn btn-outline nav-cta" data-i18n="nav_book_btn">Book Table</a>
+
+        <a href="login.html" class="nav-admin-link" title="Admin Dashboard">
+          <i class="fa-solid fa-gauge-high"></i> <span>Admin</span>
+        </a>
+
+        <button class="mobile-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <div class="hero-text">
+        <div class="badge-tag">
+          <i class="fa-solid fa-seedling"></i>
+          <span data-i18n="hero_badge">100% Ethiopian Highland Arabica</span>
+        </div>
+        <h1 class="hero-title" data-i18n="hero_title">Where Coffee Was Born, Brewed to Perfection</h1>
+        <p class="hero-desc" data-i18n="hero_desc">
+          Experience authentic Ethiopian coffee heritage from Yirgacheffe, Sidama, and Harar. Traditional Jebena aromas, modern espresso craftsmanship, and warm freshly baked pastries in the heart of Addis Ababa.
+        </p>
+        <div class="hero-btns">
+          <a href="#menu" class="btn btn-primary">
+            <i class="fa-solid fa-utensils"></i>
+            <span data-i18n="hero_btn_menu">Explore Menu</span>
+          </a>
+          <a href="#reservation" class="btn btn-secondary">
+            <i class="fa-regular fa-calendar-check"></i>
+            <span data-i18n="hero_btn_reserve">Reserve a Table</span>
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-num">100%</span>
+            <span class="stat-label" data-i18n="stat_origin">Single Origin Beans</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">4.9 ★</span>
+            <span class="stat-label" data-i18n="stat_rating">Customer Rating</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">15k+</span>
+            <span class="stat-label" data-i18n="stat_community">Coffee Lovers in Addis</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Strip -->
+  <section class="features-strip">
+    <div class="container features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-fire-burner"></i></div>
+        <div class="feature-info">
+          <h3 data-i18n="feat_1_title">Authentic Jebena & Roast</h3>
+          <p data-i18n="feat_1_desc">Traditional clay pot brewing and daily micro-roasting.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-leaf"></i></div>
+        <div class="feature-info">
+          <h3 data-i18n="feat_2_title">Direct From Farmers</h3>
+          <p data-i18n="feat_2_desc">Ethically harvested from Yirgacheffe & Sidama hills.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-bread-slice"></i></div>
+        <div class="feature-info">
+          <h3 data-i18n="feat_3_title">Fresh Sambusa & Bakes</h3>
+          <p data-i18n="feat_3_desc">Crispy pastries and artisan cakes made fresh every dawn.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-wifi"></i></div>
+        <div class="feature-info">
+          <h3 data-i18n="feat_4_title">High-Speed Wi-Fi & Lounge</h3>
+          <p data-i18n="feat_4_desc">Ideal spot for meetings, remote work, and quiet study.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about section" id="about">
+    <div class="container about-container">
+      <div class="about-image-wrapper">
+        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80" alt="Ethiopian pour over and coffee beans" class="about-img main-img">
+        <div class="about-card-floating">
+          <i class="fa-solid fa-award"></i>
+          <div>
+            <h4 data-i18n="about_badge_title">Master Baristas</h4>
+            <p data-i18n="about_badge_desc">Trained in authentic Ethiopian extraction</p>
+          </div>
+        </div>
+      </div>
+      <div class="about-content">
+        <span class="section-subtitle" data-i18n="about_subtitle">OUR HERITAGE & PASSION</span>
+        <h2 class="section-title" data-i18n="about_title">Celebrating Ethiopian Coffee Culture</h2>
+        <p class="about-text" data-i18n="about_p1">
+          At Alush Coffee, we take pride in serving the world's most aromatic beans right from their ancestral home. Coffee is an essential Ethiopian tradition—a welcoming ceremony, a moment of friendship, and our proudest gift to the world.
+        </p>
+        <p class="about-text" data-i18n="about_p2">
+          From slow-roasted Yirgacheffe and floral Sidama extractions to rich modern macchiatos, our baristas craft each pour with passion and reverence.
+        </p>
+        <ul class="about-highlights">
+          <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="about_point1">Traditional Jebena Buna ceremony with frankincense aroma</span></li>
+          <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="about_point2">Payment accepted via Telebirr, CBE Birr & cash</span></li>
+          <li><i class="fa-solid fa-circle-check"></i> <span data-i18n="about_point3">Fresh daily pastries, Habesha cakes & crispy sambusas</span></li>
+        </ul>
+        <a href="#menu" class="btn btn-primary" data-i18n="about_btn">Explore Our Menu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section with Filters -->
+  <section class="menu section" id="menu">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-subtitle" data-i18n="menu_subtitle">HANDCRAFTED TASTES</span>
+        <h2 class="section-title" data-i18n="menu_title">Our Signature Menu (በኢትዮጵያ ብር)</h2>
+        <p class="section-desc" data-i18n="menu_desc">Select from traditional Ethiopian brews, rich espresso creations, and bakery delights.</p>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="menu-tabs" id="menu-tabs">
+        <button class="tab-btn active" data-filter="all">
+          <i class="fa-solid fa-layer-group"></i> <span data-i18n="filter_all">All Items</span>
+        </button>
+        <button class="tab-btn" data-filter="hot">
+          <i class="fa-solid fa-mug-hot"></i> <span data-i18n="filter_hot">Hot Coffee</span>
+        </button>
+        <button class="tab-btn" data-filter="cold">
+          <i class="fa-solid fa-whiskey-glass"></i> <span data-i18n="filter_cold">Cold Brews</span>
+        </button>
+        <button class="tab-btn" data-filter="bakery">
+          <i class="fa-solid fa-cookie-bite"></i> <span data-i18n="filter_bakery">Bakery & Treats</span>
+        </button>
+      </div>
+
+      <!-- Menu Grid -->
+      <div class="menu-grid" id="menu-grid">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Specials / Highlight Section -->
+  <section class="specials section" id="specials">
+    <div class="container">
+      <div class="specials-banner">
+        <div class="specials-content">
+          <span class="specials-tag" data-i18n="special_tag">SEASONAL SPECIAL</span>
+          <h2 class="specials-title" data-i18n="special_title">Spiced Sidama Honey Macchiato</h2>
+          <p class="specials-desc" data-i18n="special_desc">
+            Authentic Sidama double espresso infused with pure Gojjam wild honey, warm cardamom, cinnamon spice, and velvety steamed milk foam.
+          </p>
+          <div class="specials-price">
+            <span class="current-price" id="special-price-curr">140 ETB</span>
+            <span class="old-price" id="special-price-old">180 ETB</span>
+          </div>
+          <button class="btn btn-primary" onclick="quickAddSpecial()">
+            <i class="fa-solid fa-cart-plus"></i> <span data-i18n="special_add_btn">Add to Cart</span>
+          </button>
+        </div>
+        <div class="specials-image">
+          <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=700&q=80" alt="Specialty Spiced Macchiato">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table Reservation Section -->
+  <section class="reservation section" id="reservation">
+    <div class="container">
+      <div class="reservation-card">
+        <div class="reservation-info">
+          <span class="section-subtitle" data-i18n="res_subtitle">RESERVE A MOMENT</span>
+          <h2 class="section-title" data-i18n="res_title">Book Your Cozy Table</h2>
+          <p data-i18n="res_desc">
+            Whether for morning discussions, business meetings, or relaxed family coffee time, book your table easily in advance.
+          </p>
+          <div class="reservation-perks">
+            <div class="perk-item">
+              <i class="fa-solid fa-bolt"></i>
+              <span data-i18n="res_perk1">Instant Confirmation Code</span>
+            </div>
+            <div class="perk-item">
+              <i class="fa-solid fa-clock"></i>
+              <span data-i18n="res_perk2">Guaranteed Spot in Bole Medhanealem</span>
+            </div>
+            <div class="perk-item">
+              <i class="fa-solid fa-gift"></i>
+              <span data-i18n="res_perk3">Complimentary Roasted Kolo & Popcorn</span>
+            </div>
+          </div>
+        </div>
+
+        <form class="reservation-form" id="reservation-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="res-name"><i class="fa-regular fa-user"></i> <span data-i18n="res_lbl_name">Full Name</span></label>
+              <input type="text" id="res-name" placeholder="Abebe Kebede (አበበ ከበደ)" required>
+            </div>
+            <div class="form-group">
+              <label for="res-email"><i class="fa-regular fa-envelope"></i> <span data-i18n="res_lbl_email">Email Address</span></label>
+              <input type="email" id="res-email" placeholder="abebe@example.com" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="res-phone"><i class="fa-solid fa-phone"></i> <span data-i18n="res_lbl_phone">Phone Number (Ethiopia)</span></label>
+              <input type="tel" id="res-phone" placeholder="+251 91 123 4567" required>
+            </div>
+            <div class="form-group">
+              <label for="res-guests"><i class="fa-solid fa-user-group"></i> <span data-i18n="res_lbl_guests">Guests</span></label>
+              <select id="res-guests" required>
+                <option value="1">1 Person (Quiet Corner / 1 ሰው)</option>
+                <option value="2" selected>2 Persons (Standard Table / 2 ሰዎች)</option>
+                <option value="4">4 Persons (Booth Table / 4 ሰዎች)</option>
+                <option value="6">6+ Persons (Family Lounge / 6+ ሰዎች)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="res-date"><i class="fa-regular fa-calendar"></i> <span data-i18n="res_lbl_date">Date</span></label>
+              <input type="date" id="res-date" required>
+            </div>
+            <div class="form-group">
+              <label for="res-time"><i class="fa-regular fa-clock"></i> <span data-i18n="res_lbl_time">Time Slot</span></label>
+              <select id="res-time" required>
+                <option value="08:00 AM">08:00 AM (ጠዋት 2:00)</option>
+                <option value="10:00 AM" selected>10:00 AM (ጠዋት 4:00)</option>
+                <option value="12:30 PM">12:30 PM (ቀን 6:30)</option>
+                <option value="03:00 PM">03:00 PM (ከሰዓት 9:00)</option>
+                <option value="05:30 PM">05:30 PM (ከምሽቱ 11:30)</option>
+                <option value="07:30 PM">07:30 PM (ምሽት 1:30)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="res-notes"><i class="fa-regular fa-comment-dots"></i> <span data-i18n="res_lbl_notes">Special Requests (Optional)</span></label>
+            <input type="text" id="res-notes" placeholder="Window view, high-speed power socket, coffee ceremony...">
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            <i class="fa-solid fa-check"></i> <span data-i18n="res_btn_submit">Confirm Reservation</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Reviews Section -->
+  <section class="reviews section" id="reviews">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-subtitle" data-i18n="rev_subtitle">TESTIMONIALS</span>
+        <h2 class="section-title" data-i18n="rev_title">Loved by Addis Coffee Aficionados</h2>
+        <p class="section-desc" data-i18n="rev_desc">Read thoughts from our daily regulars in Addis Ababa.</p>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-comment" data-i18n="rev_1_comment">
+            "Alush Coffee has the best traditional Jebena Buna in Bole! The scent of frankincense and the warmth of the staff make working here such a pleasure."
+          </p>
+          <div class="reviewer">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Bethlehem Tadesse">
+            <div>
+              <h4 data-i18n="rev_1_name">Bethlehem Tadesse</h4>
+              <span data-i18n="rev_1_role">Tech Entrepreneur, Bole</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card featured-review">
+          <div class="stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-comment" data-i18n="rev_2_comment">
+            "The Yirgacheffe pour-over is magnificent. You can taste the authentic citrus and floral notes. Plus, paying with Telebirr makes quick stops completely seamless!"
+          </p>
+          <div class="reviewer">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Dawit Haile">
+            <div>
+              <h4 data-i18n="rev_2_name">Dawit Haile</h4>
+              <span data-i18n="rev_2_role">Coffee Taster & Exporter</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-comment" data-i18n="rev_3_comment">
+            "Their fresh crispy Sambusas paired with spiced tea or a cold brew are unmatched. Outstanding ambiance and great Ethiopian hospitality."
+          </p>
+          <div class="reviewer">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="Alula Girma">
+            <div>
+              <h4 data-i18n="rev_3_name">Alula Girma</h4>
+              <span data-i18n="rev_3_role">Architect & Designer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Location Section -->
+  <section class="contact section" id="contact">
+    <div class="container contact-container">
+      <div class="contact-info">
+        <span class="section-subtitle" data-i18n="contact_subtitle">VISIT OUR CAFE</span>
+        <h2 class="section-title" data-i18n="contact_title">Drop In For A Cup in Addis</h2>
+        <p data-i18n="contact_desc">Step inside our aromatic haven in Bole, taste freshly roasted beans, and connect with great people.</p>
+
+        <div class="info-blocks">
+          <div class="info-item">
+            <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <h4 data-i18n="contact_lbl_loc">Location</h4>
+              <p data-i18n="contact_val_loc">Bole Medhanealem, Cameroon Street, Addis Ababa, Ethiopia</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="icon"><i class="fa-solid fa-clock"></i></div>
+            <div>
+              <h4 data-i18n="contact_lbl_hours">Opening Hours</h4>
+              <p data-i18n="contact_val_hours">Mon – Sun: 06:30 AM – 10:00 PM (ሰኞ – እሁድ ከጠዋቱ 12:30 – ማታ 4:00)</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="icon"><i class="fa-solid fa-phone"></i></div>
+            <div>
+              <h4 data-i18n="contact_lbl_phone">Phone & Inquiries</h4>
+              <p>+251 91 123 4567 &bull; +251 11 661 2345<br>hello@alushcoffeehouse.et</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Newsletter Subscription -->
+        <div class="newsletter-box">
+          <h4 data-i18n="news_title">Join the Alush Coffee Club</h4>
+          <p data-i18n="news_desc">Get special seasonal offers, discounts, and invites to traditional roasting ceremonies.</p>
+          <form class="newsletter-form" id="newsletter-form">
+            <input type="email" placeholder="Enter your email (ኢሜይልዎን ያስገቡ)" required id="newsletter-email">
+            <button type="submit" class="btn btn-primary" data-i18n="news_btn">Subscribe</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="contact-map">
+        <!-- Interactive Map Mockup Card -->
+        <div class="map-card">
+          <div class="map-visual">
+            <div class="map-pin">
+              <i class="fa-solid fa-mug-hot"></i>
+              <div class="pulse-ring"></div>
+            </div>
+            <div class="map-street-label" data-i18n="map_label">Alush Coffee &bull; Bole, Addis Ababa</div>
+          </div>
+          <div class="map-details">
+            <div class="open-status">
+              <span class="status-indicator"></span>
+              <span data-i18n="map_status">Open Now &bull; Serving Fresh Ethiopian Roast</span>
+            </div>
+            <a href="https://maps.google.com/?q=Bole+Medhanealem+Addis+Ababa" target="_blank" rel="noopener" class="btn btn-outline btn-block">
+              <i class="fa-solid fa-diamond-turn-right"></i> <span data-i18n="map_directions">Get Directions (አቅጣጫ አሳይ)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide-out Shopping Cart Drawer with Ethiopian Birr & Telebirr/CBE -->
+  <div class="cart-drawer-overlay" id="cart-drawer-overlay"></div>
+  <aside class="cart-drawer" id="cart-drawer">
+    <div class="cart-header">
+      <div class="cart-header-title">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <h3 data-i18n="cart_title">Your Coffee Order</h3>
+      </div>
+      <button class="cart-close-btn" id="cart-close-btn" aria-label="Close Cart">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="cart-items" id="cart-items">
+      <!-- Items dynamically populated via JS -->
+    </div>
+
+    <div class="cart-footer" id="cart-footer">
+      <!-- Ethiopian Payment Methods -->
+      <div class="payment-method-group">
+        <span class="payment-title"><i class="fa-solid fa-wallet"></i> <span data-i18n="cart_pay_method">Payment Method (የመክፈያ ዘዴ)</span></span>
+        <div class="payment-options">
+          <label class="pay-option selected">
+            <input type="radio" name="pay-method" value="Telebirr" checked>
+            <span><i class="fa-solid fa-mobile-screen"></i> Telebirr (ቴሌብር)</span>
+          </label>
+          <label class="pay-option">
+            <input type="radio" name="pay-method" value="CBE Birr">
+            <span><i class="fa-solid fa-building-columns"></i> CBE Birr (ሲቢኢ)</span>
+          </label>
+          <label class="pay-option">
+            <input type="radio" name="pay-method" value="Awash Bank">
+            <span><i class="fa-solid fa-money-check"></i> Awash Bank</span>
+          </label>
+          <label class="pay-option">
+            <input type="radio" name="pay-method" value="Cash">
+            <span><i class="fa-solid fa-money-bill-wave"></i> Cash (በካሽ)</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="cart-summary-line">
+        <span data-i18n="cart_subtotal">Subtotal</span>
+        <span id="cart-subtotal">0.00 ETB</span>
+      </div>
+      <div class="cart-summary-line">
+        <span data-i18n="cart_tax">VAT / Tax (15%)</span>
+        <span id="cart-tax">0.00 ETB</span>
+      </div>
+      <div class="cart-summary-total">
+        <span data-i18n="cart_total">Total (ጠቅላላ)</span>
+        <span id="cart-total">0.00 ETB</span>
+      </div>
+      <button class="btn btn-primary btn-block checkout-btn" id="checkout-btn">
+        <i class="fa-solid fa-check-circle"></i> <span data-i18n="cart_checkout">Pay with Ethiopian Birr</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Notification Toast -->
+  <div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check toast-icon"></i>
+    <span class="toast-message" id="toast-message">Item added to cart!</span>
+  </div>
+
+  <!-- Booking Confirmation Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-icon"><i class="fa-solid fa-check"></i></div>
+      <h3 id="modal-title" data-i18n="modal_success_title">Table Reserved Successfully!</h3>
+      <p id="modal-desc" data-i18n="modal_success_desc">We've saved your spot at Alush Coffee House. Confirmation code below.</p>
+      <div class="modal-details" id="modal-details">
+        <!-- Injected by script -->
+      </div>
+      <button class="btn btn-primary btn-block" id="modal-close-btn" data-i18n="modal_btn">Great, See You Soon! (እሺ አመሰግናለሁ)</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <a href="#" class="logo footer-logo">
+          <i class="fa-solid fa-mug-hot"></i>
+          <span>Alush <span>Coffee House</span></span>
+        </a>
+        <p data-i18n="footer_about">
+          Proudly serving genuine Ethiopian single-origin beans, traditional Jebena extractions, and specialty coffee in Addis Ababa, Ethiopia.
+        </p>
+        <div class="social-links">
+          <a href="#" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <h4 data-i18n="footer_quick_links">Quick Links</h4>
+        <ul>
+          <li><a href="#home" data-i18n="nav_home">Home</a></li>
+          <li><a href="#about" data-i18n="nav_about">Our Story</a></li>
+          <li><a href="#menu" data-i18n="nav_menu">Daily Menu</a></li>
+          <li><a href="#reservation" data-i18n="nav_reserve">Table Reservation</a></li>
+          <li><a href="#contact" data-i18n="nav_contact">Find Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4 data-i18n="footer_specialties">Specialties</h4>
+        <ul>
+          <li><a href="#menu">Yirgacheffe V60 Pour-over</a></li>
+          <li><a href="#menu">Traditional Jebena Buna</a></li>
+          <li><a href="#menu">Sidama Honey Flat White</a></li>
+          <li><a href="#menu">Fresh Meat & Lentil Sambusa</a></li>
+          <li><a href="#menu">Kaffa Nitro Cold Brew</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-hours">
+        <h4 data-i18n="footer_hours_title">Hours of Pouring</h4>
+        <p><strong>Monday – Friday:</strong><br>06:30 AM – 10:00 PM</p>
+        <p><strong>Saturday – Sunday:</strong><br>07:00 AM – 10:30 PM</p>
+        <p><i class="fa-solid fa-location-dot"></i> Bole Medhanealem, Addis Ababa</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-flex">
+        <p>&copy; <span id="current-year"></span> Alush Coffee House. All rights reserved.</p>
+        <p>Crafted with <i class="fa-solid fa-heart" style="color: #e28743;"></i> in the Birthplace of Coffee, Ethiopia &nbsp;|&nbsp; <a href="login.html" style="color: #c58d55; text-decoration:none;"><i class="fa-solid fa-gauge-high"></i> Admin</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

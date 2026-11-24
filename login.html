@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | Alush Coffee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #c27838;
+      --primary-dark: #8e4c19;
+      --bg: #0f0d0b;
+      --surface: #191613;
+      --surface-light: #24201b;
+      --border: #383028;
+      --text: #f5efe6;
+      --text-muted: #a6998b;
+      --danger: #e74c3c;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(194, 120, 56, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(142, 76, 25, 0.08) 0%, transparent 40%);
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 440px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 68px;
+      height: 68px;
+      background: linear-gradient(135deg, #d88e42 0%, #8e4c19 100%);
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      border-radius: 18px;
+      color: #ffffff;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 8px 24px rgba(216, 142, 66, 0.45);
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+    .login-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+    .login-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .alert {
+      display: none;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+    .alert-danger {
+      background: rgba(231, 76, 60, 0.15);
+      border: 1px solid rgba(231, 76, 60, 0.3);
+      color: #ff6b6b;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-icon {
+      position: absolute;
+      left: 1rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .form-control {
+      width: 100%;
+      background: var(--surface-light);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.8rem 1rem 0.8rem 2.75rem;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: #2b2520;
+      box-shadow: 0 0 0 3px rgba(194, 120, 56, 0.2);
+    }
+    .toggle-password {
+      position: absolute;
+      right: 1rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 0.95rem;
+    }
+    .toggle-password:hover {
+      color: var(--text);
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      transition: all 0.2s;
+    }
+    .btn-login:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+    .btn-login:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .credentials-hint {
+      margin-top: 1.5rem;
+      padding: 0.85rem;
+      background: rgba(194, 120, 56, 0.08);
+      border: 1px dashed rgba(194, 120, 56, 0.3);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .credentials-hint code {
+      color: var(--primary);
+      font-weight: 700;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 1.5rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="login-header">
+      <div class="brand-logo">
+        <i class="fa-solid fa-mug-hot"></i>
+      </div>
+      <h1 class="login-title">Alush Coffee</h1>
+      <p class="login-subtitle">Barista & Admin Portal</p>
+    </div>
+
+    <div class="alert alert-danger" id="error-alert">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span id="error-text">Invalid username or password</span>
+    </div>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <div class="input-wrap">
+          <i class="fa-regular fa-user input-icon"></i>
+          <input type="text" id="username" class="form-control" placeholder="Enter username" required autofocus autocomplete="username">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-lock input-icon"></i>
+          <input type="password" id="password" class="form-control" placeholder="Enter password" required autocomplete="current-password">
+          <button type="button" class="toggle-password" id="toggle-pass-btn" aria-label="Toggle password view">
+            <i class="fa-regular fa-eye" id="eye-icon"></i>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-login" id="submit-btn">
+        <i class="fa-solid fa-right-to-bracket"></i>
+        <span>Sign In</span>
+      </button>
+    </form>
+
+    
+
+    <a href="/" class="back-link">
+      <i class="fa-solid fa-arrow-left"></i> Back to Alush Coffee Storefront
+    </a>
+  </div>
+
+  <script>
+    // Password visibility toggle
+    const toggleBtn = document.getElementById('toggle-pass-btn');
+    const passInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eye-icon');
+
+    toggleBtn.addEventListener('click', () => {
+      if (passInput.type === 'password') {
+        passInput.type = 'text';
+        eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        passInput.type = 'password';
+        eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    });
+
+    // Form submission
+    const form = document.getElementById('login-form');
+    const errorAlert = document.getElementById('error-alert');
+    const errorText = document.getElementById('error-text');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorAlert.style.display = 'none';
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Verifying...</span>`;
+
+      try {
+        // Try Node.js endpoint first, then PHP endpoint fallback
+        let response;
+        try {
+          response = await fetch('/api/admin/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+          });
+        } catch (e) {
+          response = await fetch('api/login.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+          });
+        }
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          // Store authentication token & user info
+          localStorage.setItem('alush_admin_token', data.token);
+          localStorage.setItem('alush_admin_user', JSON.stringify(data.admin));
+
+          // Redirect to admin dashboard
+          window.location.href = 'admin.html';
+        } else {
+          errorText.textContent = data.error || 'Invalid username or password.';
+          errorAlert.style.display = 'flex';
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> <span>Sign In</span>`;
+        }
+      } catch (err) {
+        errorText.textContent = 'Could not connect to server. Check MySQL service.';
+        errorAlert.style.display = 'flex';
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> <span>Sign In</span>`;
+      }
+    });
+
+    // If already logged in, redirect directly to admin.html
+    const existingToken = localStorage.getItem('alush_admin_token');
+    if (existingToken) {
+      window.location.href = 'admin.html';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Alush Coffee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #c27838;
+      --primary-dark: #8e4c19;
+      --bg: #0f0d0b;
+      --surface: #191613;
+      --surface-light: #24201b;
+      --border: #383028;
+      --text: #f5efe6;
+      --text-muted: #a6998b;
+      --success: #2ecc71;
+      --warning: #f39c12;
+      --danger: #e74c3c;
+      --info: #3498db;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 1rem;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1.25rem;
+      font-weight: 700;
+      padding: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .brand i { color: var(--primary); font-size: 1.5rem; }
+    .brand span span { color: var(--primary); }
+
+    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+    .nav-item button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.85rem 1rem;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+    }
+    .nav-item button:hover {
+      background: var(--surface-light);
+      color: var(--text);
+    }
+    .nav-item button.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .sidebar-footer {
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar-footer a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .sidebar-footer a:hover { color: var(--primary); }
+
+    /* Main Content */
+    .main {
+      margin-left: 260px;
+      flex: 1;
+      padding: 2rem;
+      max-width: 1300px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .header h1 { font-size: 1.8rem; font-weight: 700; }
+    .header-actions { display: flex; gap: 1rem; align-items: center; }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(46, 204, 113, 0.15);
+      color: var(--success);
+      padding: 0.4rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* KPI Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .kpi-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      background: rgba(194, 120, 56, 0.15);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+    .kpi-info h3 { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .kpi-info .kpi-value { font-size: 1.5rem; font-weight: 700; color: var(--text); margin-top: 0.25rem; }
+
+    /* Tabs Content */
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* Tables */
+    .card-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .box-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+    .box-header h2 { font-size: 1.25rem; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    th {
+      padding: 0.85rem 1rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--border);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+
+    /* Status Pills */
+    .pill {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .pill-pending { background: rgba(243, 156, 18, 0.2); color: var(--warning); }
+    .pill-preparing { background: rgba(52, 152, 219, 0.2); color: var(--info); }
+    .pill-ready { background: rgba(155, 89, 182, 0.2); color: #9b59b6; }
+    .pill-completed { background: rgba(46, 204, 113, 0.2); color: var(--success); }
+    .pill-cancelled { background: rgba(231, 76, 60, 0.2); color: var(--danger); }
+    .pill-confirmed { background: rgba(46, 204, 113, 0.2); color: var(--success); }
+
+    /* Action buttons */
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-sm { padding: 0.35rem 0.65rem; font-size: 0.8rem; }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { background: var(--surface-light); border-color: var(--primary); }
+
+    select.status-select {
+      background: var(--surface-light);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    /* Modal Form */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 550px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: 0.85rem; margin-bottom: 0.4rem; color: var(--text-muted); }
+    .form-control {
+      width: 100%;
+      background: var(--surface-light);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.65rem 0.85rem;
+      color: var(--text);
+      font-family: inherit;
+    }
+    .form-control:focus { outline: none; border-color: var(--primary); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  </style>
+</head>
+<body>
+  <script>
+    // Immediate Auth Guard
+    if (!localStorage.getItem('alush_admin_token')) {
+      window.location.replace('login.html');
+    }
+  </script>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <a href="/" class="brand">
+      <div style="width:38px; height:38px; border-radius:10px; background:linear-gradient(135deg, #d88e42 0%, #8e4c19 100%); display:flex; align-items:center; justify-content:center; box-shadow:0 3px 12px rgba(216,142,66,0.45); flex-shrink:0; border:1px solid rgba(255,255,255,0.2);">
+        <i class="fa-solid fa-mug-hot" style="color:#fff; font-size:1.15rem;"></i>
+      </div>
+      <span>Alush <span>Coffee</span></span>
+    </a>
+
+    <!-- Logged in Admin Profile -->
+    <div style="display:flex; align-items:center; gap:0.75rem; padding:0.75rem; background:var(--surface-light); border-radius:8px; margin-bottom:1.5rem; border:1px solid var(--border);">
+      <div style="width:36px; height:36px; border-radius:50%; background:rgba(194,120,56,0.2); color:var(--primary); display:flex; align-items:center; justify-content:center; font-size:1.1rem;">
+        <i class="fa-solid fa-user-shield"></i>
+      </div>
+      <div style="overflow:hidden;">
+        <div style="font-size:0.9rem; font-weight:700; color:var(--text);" id="admin-user-display">alush</div>
+        <div style="font-size:0.75rem; color:var(--primary); font-weight:600;">Administrator</div>
+      </div>
+    </div>
+
+    <ul class="nav-links">
+      <li class="nav-item">
+        <button class="active" onclick="switchTab('orders-tab')">
+          <i class="fa-solid fa-receipt"></i> Live Orders
+        </button>
+      </li>
+      <li class="nav-item">
+        <button onclick="switchTab('reservations-tab')">
+          <i class="fa-regular fa-calendar-check"></i> Reservations
+        </button>
+      </li>
+      <li class="nav-item">
+        <button onclick="switchTab('menu-tab')">
+          <i class="fa-solid fa-utensils"></i> Menu Management
+        </button>
+      </li>
+      <li class="nav-item">
+        <button onclick="switchTab('subscribers-tab')">
+          <i class="fa-solid fa-envelope-open-text"></i> Coffee Club Emails
+        </button>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer" style="display:flex; flex-direction:column; gap:0.6rem;">
+      <a href="/" target="_blank">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Storefront
+      </a>
+      <button onclick="adminLogout()" class="btn btn-outline" style="width:100%; justify-content:flex-start; color:var(--danger); border-color:rgba(231,76,60,0.35);">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out (Logout)
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main View -->
+  <main class="main">
+    <div class="header">
+      <div>
+        <h1 id="page-title">Orders & Kitchen Bar</h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.2rem;">Live updates connected to MySQL database</p>
+      </div>
+      <div class="header-actions">
+        <div class="status-badge">
+          <i class="fa-solid fa-circle" style="font-size: 0.6rem;"></i>
+          <span id="db-indicator">MySQL Connected</span>
+        </div>
+        <button class="btn btn-outline" onclick="loadAllData()">
+          <i class="fa-solid fa-rotate"></i> Refresh
+        </button>
+      </div>
+    </div>
+
+    <!-- KPI Grid -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-icon"><i class="fa-solid fa-coins"></i></div>
+        <div class="kpi-info">
+          <h3>Total Revenue</h3>
+          <div class="kpi-value" id="kpi-revenue">0.00 ETB</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+        <div class="kpi-info">
+          <h3>Total Orders</h3>
+          <div class="kpi-value" id="kpi-orders">0</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon"><i class="fa-regular fa-calendar-check"></i></div>
+        <div class="kpi-info">
+          <h3>Reservations</h3>
+          <div class="kpi-value" id="kpi-reservations">0</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon"><i class="fa-solid fa-mug-saucer"></i></div>
+        <div class="kpi-info">
+          <h3>Menu Items</h3>
+          <div class="kpi-value" id="kpi-menu-items">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 1: Orders -->
+    <div class="tab-pane active" id="orders-tab">
+      <div class="card-box">
+        <div class="box-header">
+          <h2>Customer Coffee Orders</h2>
+        </div>
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Order Code</th>
+                <th>Customer</th>
+                <th>Payment</th>
+                <th>Items</th>
+                <th>Total (ETB)</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="orders-tbody">
+              <tr><td colspan="7" style="text-align:center; color: var(--text-muted);">Loading orders from database...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Reservations -->
+    <div class="tab-pane" id="reservations-tab">
+      <div class="card-box">
+        <div class="box-header">
+          <h2>Table Reservations</h2>
+        </div>
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Guest Name</th>
+                <th>Phone / Email</th>
+                <th>Party Size</th>
+                <th>Date & Slot</th>
+                <th>Special Requests</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="reservations-tbody">
+              <tr><td colspan="8" style="text-align:center; color: var(--text-muted);">Loading reservations...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Menu Items -->
+    <div class="tab-pane" id="menu-tab">
+      <div class="card-box">
+        <div class="box-header">
+          <h2>Cafe Menu Items</h2>
+          <button class="btn btn-primary" onclick="openAddMenuModal()">
+            <i class="fa-solid fa-plus"></i> Add New Item
+          </button>
+        </div>
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Category</th>
+                <th>Tag</th>
+                <th>Price (ETB)</th>
+                <th>Rating</th>
+                <th>Available</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="menu-tbody">
+              <tr><td colspan="7" style="text-align:center; color: var(--text-muted);">Loading menu...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Newsletter Subscribers -->
+    <div class="tab-pane" id="subscribers-tab">
+      <div class="card-box">
+        <div class="box-header">
+          <h2>Alush Coffee Club Subscribers</h2>
+        </div>
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th># ID</th>
+                <th>Email Address</th>
+                <th>Subscribed Date</th>
+              </tr>
+            </thead>
+            <tbody id="subscribers-tbody">
+              <tr><td colspan="3" style="text-align:center; color: var(--text-muted);">Loading emails...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Add Menu Item Modal -->
+  <div class="modal-overlay" id="menu-modal">
+    <div class="modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+        <h3>Add New Menu Item</h3>
+        <button class="btn btn-outline btn-sm" onclick="closeAddMenuModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="add-menu-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Item ID (Unique)</label>
+            <input type="text" class="form-control" id="m-id" placeholder="e.g. c9-nitro" required>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select class="form-control" id="m-category" required>
+              <option value="hot">Hot Coffee</option>
+              <option value="cold">Cold Brews</option>
+              <option value="bakery">Bakery & Treats</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Title (English)</label>
+          <input type="text" class="form-control" id="m-title-en" placeholder="e.g. Yirgacheffe Cold Drip" required>
+        </div>
+
+        <div class="form-group">
+          <label>Title (Amharic / አማርኛ)</label>
+          <input type="text" class="form-control" id="m-title-am" placeholder="e.g. የይርጋጨፌ ቀዝቃዛ ቡና" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Price (ETB / ብር)</label>
+            <input type="number" class="form-control" id="m-price" placeholder="140" required>
+          </div>
+          <div class="form-group">
+            <label>Tag (English)</label>
+            <input type="text" class="form-control" id="m-tag-en" placeholder="Single Origin">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Image URL</label>
+          <input type="url" class="form-control" id="m-image" placeholder="https://images.unsplash.com/photo-..." required>
+        </div>
+
+        <div class="form-group">
+          <label>Description (English)</label>
+          <textarea class="form-control" id="m-desc-en" rows="2" placeholder="Tasting notes, extraction method..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Description (Amharic / አማርኛ)</label>
+          <textarea class="form-control" id="m-desc-am" rows="2" placeholder="የቡናው ጣዕምና ማብራሪያ..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1rem;">
+          <i class="fa-solid fa-save"></i> Save to MySQL Database
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = '/api';
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-item button').forEach(el => el.classList.remove('active'));
+
+      const targetPane = document.getElementById(tabId);
+      if (targetPane) targetPane.classList.add('active');
+
+      const btn = event.currentTarget;
+      if (btn) btn.classList.add('active');
+
+      const titles = {
+        'orders-tab': 'Orders & Kitchen Bar',
+        'reservations-tab': 'Table Reservations',
+        'menu-tab': 'Menu Management',
+        'subscribers-tab': 'Coffee Club Emails'
+      };
+      if (titles[tabId]) document.getElementById('page-title').textContent = titles[tabId];
+    }
+
+    async function loadStats() {
+      try {
+        const res = await fetch(`${API_BASE}/stats`);
+        const json = await res.json();
+        if (json.success && json.stats) {
+          document.getElementById('kpi-revenue').textContent = `${parseFloat(json.stats.totalRevenue).toLocaleString()} ETB`;
+          document.getElementById('kpi-orders').textContent = json.stats.totalOrders;
+          document.getElementById('kpi-reservations').textContent = json.stats.totalReservations;
+          document.getElementById('kpi-menu-items').textContent = json.stats.totalMenuItems;
+        }
+      } catch (err) {
+        console.error('Stats error:', err);
+      }
+    }
+
+    async function loadOrders() {
+      const tbody = document.getElementById('orders-tbody');
+      try {
+        const res = await fetch(`${API_BASE}/orders`);
+        const json = await res.json();
+
+        if (!json.success || json.data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color: var(--text-muted);">No orders recorded yet.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = json.data.map(order => {
+          const itemsSummary = (order.items || []).map(i => `${i.quantity}x ${i.item_title}`).join(', ') || 'Coffee order';
+          const pillClass = `pill-${order.status.toLowerCase()}`;
+
+          return `
+            <tr>
+              <td><strong>#${order.order_code}</strong></td>
+              <td>
+                <strong>${order.customer_name}</strong><br>
+                <small style="color:var(--text-muted);">${order.customer_phone || 'No phone'}</small>
+              </td>
+              <td><span class="pill pill-ready">${order.payment_method}</span></td>
+              <td style="max-width:250px; font-size:0.85rem;">${itemsSummary}</td>
+              <td><strong>${parseFloat(order.total_amount).toFixed(2)} ETB</strong></td>
+              <td><span class="pill ${pillClass}">${order.status}</span></td>
+              <td>
+                <select class="status-select" onchange="updateOrderStatus('${order.order_code}', this.value)">
+                  <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                  <option value="Preparing" ${order.status === 'Preparing' ? 'selected' : ''}>Preparing</option>
+                  <option value="Ready" ${order.status === 'Ready' ? 'selected' : ''}>Ready</option>
+                  <option value="Completed" ${order.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                  <option value="Cancelled" ${order.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+                </select>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color: var(--danger);">Failed to load orders: ${err.message}</td></tr>`;
+      }
+    }
+
+    async function updateOrderStatus(orderCode, newStatus) {
+      try {
+        const res = await fetch(`${API_BASE}/orders/${orderCode}/status`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus })
+        });
+        const json = await res.json();
+        if (json.success) {
+          loadOrders();
+          loadStats();
+        }
+      } catch (err) {
+        alert('Failed to update status');
+      }
+    }
+
+    async function loadReservations() {
+      const tbody = document.getElementById('reservations-tbody');
+      try {
+        const res = await fetch(`${API_BASE}/reservations`);
+        const json = await res.json();
+
+        if (!json.success || json.data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color: var(--text-muted);">No reservations found.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = json.data.map(r => {
+          const pillClass = r.status === 'Confirmed' ? 'pill-confirmed' : (r.status === 'Cancelled' ? 'pill-cancelled' : 'pill-pending');
+          const cleanDate = r.reservation_date.split('T')[0];
+
+          return `
+            <tr>
+              <td><strong>#${r.reservation_code}</strong></td>
+              <td><strong>${r.full_name}</strong></td>
+              <td>${r.phone}<br><small style="color:var(--text-muted);">${r.email}</small></td>
+              <td><i class="fa-solid fa-user-group"></i> ${r.guests} Guests</td>
+              <td>${cleanDate}<br><small style="color:var(--primary); font-weight:600;">${r.time_slot}</small></td>
+              <td style="max-width:200px; font-size:0.85rem; color:var(--text-muted);">${r.special_requests || 'None'}</td>
+              <td><span class="pill ${pillClass}">${r.status}</span></td>
+              <td>
+                <select class="status-select" onchange="updateReservationStatus('${r.reservation_code}', this.value)">
+                  <option value="Confirmed" ${r.status === 'Confirmed' ? 'selected' : ''}>Confirmed</option>
+                  <option value="Pending" ${r.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                  <option value="Seated" ${r.status === 'Seated' ? 'selected' : ''}>Seated</option>
+                  <option value="Cancelled" ${r.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+                </select>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color: var(--danger);">Failed to load reservations: ${err.message}</td></tr>`;
+      }
+    }
+
+    async function updateReservationStatus(code, newStatus) {
+      try {
+        await fetch(`${API_BASE}/reservations/${code}/status`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus })
+        });
+        loadReservations();
+        loadStats();
+      } catch (err) {
+        alert('Failed to update reservation');
+      }
+    }
+
+    async function loadMenu() {
+      const tbody = document.getElementById('menu-tbody');
+      try {
+        const res = await fetch(`${API_BASE}/menu`);
+        const json = await res.json();
+
+        if (!json.success || json.data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No menu items in database.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = json.data.map(item => `
+          <tr>
+            <td>
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <img src="${item.image}" alt="" style="width:40px; height:40px; border-radius:6px; object-fit:cover;">
+                <div>
+                  <strong>${item.titleEn}</strong><br>
+                  <small style="color:var(--text-muted);">${item.titleAm || ''}</small>
+                </div>
+              </div>
+            </td>
+            <td><span class="pill pill-ready">${item.category.toUpperCase()}</span></td>
+            <td><span class="pill pill-pending">${item.tagEn || 'Standard'}</span></td>
+            <td><strong>${item.price.toFixed(2)} ETB</strong></td>
+            <td>★ ${item.rating}</td>
+            <td><span class="pill ${item.isAvailable ? 'pill-completed' : 'pill-cancelled'}">${item.isAvailable ? 'In Stock' : 'Out of Stock'}</span></td>
+            <td>
+              <button class="btn btn-outline btn-sm" onclick="deleteMenuItem('${item.id}')" style="color:var(--danger); border-color:var(--danger);">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color: var(--danger);">Failed to load menu: ${err.message}</td></tr>`;
+      }
+    }
+
+    async function deleteMenuItem(id) {
+      if (!confirm('Are you sure you want to delete this menu item from MySQL?')) return;
+      try {
+        await fetch(`${API_BASE}/menu/${id}`, { method: 'DELETE' });
+        loadMenu();
+        loadStats();
+      } catch (err) {
+        alert('Failed to delete item');
+      }
+    }
+
+    async function loadSubscribers() {
+      const tbody = document.getElementById('subscribers-tbody');
+      try {
+        const res = await fetch(`${API_BASE}/newsletter`);
+        const json = await res.json();
+
+        if (!json.success || json.data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">No subscribers yet.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = json.data.map(sub => `
+          <tr>
+            <td>#${sub.id}</td>
+            <td><strong>${sub.email}</strong></td>
+            <td>${new Date(sub.subscribed_at).toLocaleString()}</td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;">Failed to load subscribers.</td></tr>`;
+      }
+    }
+
+    function openAddMenuModal() {
+      document.getElementById('menu-modal').classList.add('active');
+    }
+    function closeAddMenuModal() {
+      document.getElementById('menu-modal').classList.remove('active');
+    }
+
+    document.getElementById('add-menu-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        id: document.getElementById('m-id').value.trim(),
+        titleEn: document.getElementById('m-title-en').value.trim(),
+        titleAm: document.getElementById('m-title-am').value.trim(),
+        category: document.getElementById('m-category').value,
+        price: parseFloat(document.getElementById('m-price').value),
+        tagEn: document.getElementById('m-tag-en').value.trim() || 'Signature',
+        image: document.getElementById('m-image').value.trim(),
+        descEn: document.getElementById('m-desc-en').value.trim(),
+        descAm: document.getElementById('m-desc-am').value.trim()
+      };
+
+      try {
+        const res = await fetch(`${API_BASE}/menu`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const json = await res.json();
+        if (json.success) {
+          closeAddMenuModal();
+          e.target.reset();
+          loadMenu();
+          loadStats();
+        } else {
+          alert(json.error || 'Failed to add menu item');
+        }
+      } catch (err) {
+        alert('Error connecting to backend');
+      }
+    });
+
+    function adminLogout() {
+      const token = localStorage.getItem('alush_admin_token');
+      fetch(`${API_BASE}/admin/logout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token })
+      }).finally(() => {
+        localStorage.removeItem('alush_admin_token');
+        localStorage.removeItem('alush_admin_user');
+        window.location.href = 'login.html';
+      });
+    }
+
+    function initAdminProfile() {
+      try {
+        const userJson = localStorage.getItem('alush_admin_user');
+        if (userJson) {
+          const user = JSON.parse(userJson);
+          const nameEl = document.getElementById('admin-user-display');
+          if (nameEl && user.username) {
+            nameEl.textContent = user.username;
+          }
+        }
+      } catch (e) {}
+    }
+
+    function loadAllData() {
+      initAdminProfile();
+      loadStats();
+      loadOrders();
+      loadReservations();
+      loadMenu();
+      loadSubscribers();
+    }
+
+    document.addEventListener('DOMContentLoaded', loadAllData);
+  </script>
+</body>
+</html>
